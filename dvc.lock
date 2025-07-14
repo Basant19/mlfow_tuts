@@ -1,0 +1,93 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python simple_demo_to_use_dvc_pipeline/src/data_ingestion.py
+    deps:
+    - path: simple_demo_to_use_dvc_pipeline/src/data_ingestion.py
+      hash: md5
+      md5: 5f2a0ebfaa5c327fe959a5f750bf0487
+      size: 2059
+    outs:
+    - path: simple_demo_to_use_dvc_pipeline/data/raw
+      hash: md5
+      md5: fb326d2eec197669f9638afde28356bf.dir
+      size: 827973
+      nfiles: 2
+  data_preprocessing:
+    cmd: python simple_demo_to_use_dvc_pipeline/src/data_preprocessing.py
+    deps:
+    - path: simple_demo_to_use_dvc_pipeline/data/raw/test.csv
+      hash: md5
+      md5: 35b06980c6e00772e6bf783ae10ab9b7
+      size: 164174
+    - path: simple_demo_to_use_dvc_pipeline/data/raw/train.csv
+      hash: md5
+      md5: a2aa88dfae8af3dc60e6e24a09304f4e
+      size: 663799
+    - path: simple_demo_to_use_dvc_pipeline/src/data_preprocessing.py
+      hash: md5
+      md5: db200f658c066e0f82029c4c90d237ae
+      size: 2447
+    outs:
+    - path: simple_demo_to_use_dvc_pipeline/data/processed
+      hash: md5
+      md5: ddc4fc9a086385aa9dcb7f91f3b0299c.dir
+      size: 615862
+      nfiles: 2
+  feature_engineering:
+    cmd: python simple_demo_to_use_dvc_pipeline/src/feature_engineering.py
+    deps:
+    - path: simple_demo_to_use_dvc_pipeline/data/processed/test_processed.csv
+      hash: md5
+      md5: 6051d764a59aa93b83790acb521eb800
+      size: 121922
+    - path: simple_demo_to_use_dvc_pipeline/data/processed/train_processed.csv
+      hash: md5
+      md5: 442cc3568d8c9f500ca726919fb07f1d
+      size: 493940
+    - path: simple_demo_to_use_dvc_pipeline/src/feature_engineering.py
+      hash: md5
+      md5: 22698d8f336f3379fb615208eeb5879b
+      size: 1275
+    outs:
+    - path: simple_demo_to_use_dvc_pipeline/data/features
+      hash: md5
+      md5: b62632f26a7fbf01ef97f114ad95da64.dir
+      size: 1118468
+      nfiles: 2
+  model_training:
+    cmd: python simple_demo_to_use_dvc_pipeline/src/model_building.py
+    deps:
+    - path: simple_demo_to_use_dvc_pipeline/data/features/train_bow.csv
+      hash: md5
+      md5: 24edc2c6e039e78b259cf2cdc7a1ba6c
+      size: 895330
+    - path: simple_demo_to_use_dvc_pipeline/src/model_building.py
+      hash: md5
+      md5: 26a59ec989c51d06d94e0fd8f31f5cac
+      size: 600
+    outs:
+    - path: simple_demo_to_use_dvc_pipeline/model/model.pkl
+      hash: md5
+      md5: 2930b78e1cf435b9b4e7ec0cd1fee021
+      size: 72571
+  model_evaluation:
+    cmd: python simple_demo_to_use_dvc_pipeline/src/model_evaluation.py
+    deps:
+    - path: simple_demo_to_use_dvc_pipeline/data/features/test_bow.csv
+      hash: md5
+      md5: 9f2f40e4ea9a72ca54a8920e3f9c5da3
+      size: 223138
+    - path: simple_demo_to_use_dvc_pipeline/model/model.pkl
+      hash: md5
+      md5: 2930b78e1cf435b9b4e7ec0cd1fee021
+      size: 72571
+    - path: simple_demo_to_use_dvc_pipeline/src/model_evaluation.py
+      hash: md5
+      md5: e626fd8accc799c1cf701f0747321d21
+      size: 936
+    outs:
+    - path: simple_demo_to_use_dvc_pipeline/metrics/metrics.json
+      hash: md5
+      md5: 2d2149a98e7ed2a32f9807e21fcd9017
+      size: 144

@@ -1,0 +1,43 @@
+stages:
+  data_ingestion:
+    cmd: python simple_demo_to_use_dvc_pipeline/src/data_ingestion.py
+    deps:
+    - simple_demo_to_use_dvc_pipeline/src/data_ingestion.py
+    outs:
+    - simple_demo_to_use_dvc_pipeline/data/raw
+
+  data_preprocessing:
+    cmd: python simple_demo_to_use_dvc_pipeline/src/data_preprocessing.py
+    deps:
+    - simple_demo_to_use_dvc_pipeline/src/data_preprocessing.py
+    - simple_demo_to_use_dvc_pipeline/data/raw/train.csv
+    - simple_demo_to_use_dvc_pipeline/data/raw/test.csv
+    outs:
+    - simple_demo_to_use_dvc_pipeline/data/processed
+
+  feature_engineering:
+    cmd: python simple_demo_to_use_dvc_pipeline/src/feature_engineering.py
+    deps:
+    - simple_demo_to_use_dvc_pipeline/src/feature_engineering.py
+    - simple_demo_to_use_dvc_pipeline/data/processed/train_processed.csv
+    - simple_demo_to_use_dvc_pipeline/data/processed/test_processed.csv
+    outs:
+    - simple_demo_to_use_dvc_pipeline/data/features
+
+  model_training:
+    cmd: python simple_demo_to_use_dvc_pipeline/src/model_building.py
+    deps:
+    - simple_demo_to_use_dvc_pipeline/src/model_building.py
+    - simple_demo_to_use_dvc_pipeline/data/features/train_bow.csv
+    outs:
+    - simple_demo_to_use_dvc_pipeline/model/model.pkl
+
+  model_evaluation:
+    cmd: python simple_demo_to_use_dvc_pipeline/src/model_evaluation.py
+    deps:
+      - simple_demo_to_use_dvc_pipeline/src/model_evaluation.py
+      - simple_demo_to_use_dvc_pipeline/model/model.pkl
+      - simple_demo_to_use_dvc_pipeline/data/features/test_bow.csv
+
+    metrics:
+      - simple_demo_to_use_dvc_pipeline/metrics/metrics.json

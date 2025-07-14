@@ -1,4 +1,5 @@
 for dvc 
+Problem statement
 # Build & Track ML Pipelines with DVC
 
 ## How to run?
@@ -16,8 +17,8 @@ git init
 
 dvc init
 
-dvc repro
+dvc repro #to run dvc
 
-dvc dag
+dvc dag #to visualize 
 
 dvc metrics show
