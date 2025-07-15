@@ -1,9 +1,17 @@
-scikit-learn     # For building and evaluating machine learning models (e.g., regression, classification, pipelines)
-xgboost          # For gradient boosting algorithms; efficient and powerful for structured/tabular data
-nltk             # Natural Language Toolkit for text processing, tokenization, and NLP tasks
-pandas           # For data manipulation, analysis, and working with DataFrames
-numpy            # Core numerical library for array operations and linear algebra
-dvc              # Data Version Control - for managing datasets, models, and pipelines alongside Git
-PyYAML           # For parsing YAML files used by tools like DVC (`dvc.yaml`) or config files
-ipykernel        # Enables Jupyter Notebooks to run with the current Python environment
--e .             # Installs the current directory as a package (used in local development or when using `setup.py`)
+scikit-learn     # For building and evaluating ML models
+xgboost          # Gradient boosting for structured/tabular data
+nltk             # Text processing and NLP
+pandas           # Data manipulation with DataFrames
+numpy==1.24.4    
+
+dvc              # Versioning datasets and models
+dagshub          # DVC + MLflow integration
+mlflow    # Model tracking and reproducible ML workflows
+
+PyYAML           # YAML parsing (used by DVC)
+ipykernel        # Run Jupyter notebooks
+
+protobuf
+google-api-python-client
+
+-e .             # Local editable install of your project
